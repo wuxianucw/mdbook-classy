@@ -4,7 +4,7 @@
 
 This is a focused markdown preprocessor for [mdbook](https://crates.io/crates/mdbook) that makes it simple css classes to your markdown paragraphs.
 
-It uses kramdown-style class annotation, changeing this
+It uses kramdown-style class annotation, changing this
 
 ```markdown
 {:.class-name}
