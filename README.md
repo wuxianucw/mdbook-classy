@@ -6,7 +6,7 @@ This is a focused markdown preprocessor for [mdbook](https://crates.io/crates/md
 
 It uses kramdown-style class annotation, changing this
 
-```markdown
+```
 {:.class-name}
 This is a *grand* textual paragraph. Truly **grand**!
 ```
