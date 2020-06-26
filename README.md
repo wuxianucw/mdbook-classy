@@ -1,6 +1,6 @@
 # mdbook-classy
 
-## What is this
+## What is this?
 
 This is a focused markdown preprocessor for [mdbook](https://crates.io/crates/mdbook) that makes it simple css classes to your markdown paragraphs.
 
