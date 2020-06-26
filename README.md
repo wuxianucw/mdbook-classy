@@ -24,7 +24,7 @@ This is a *grand* textual paragraph. Truly **grand**!
 ## Motifivation
 
 mdbook-classy lets you easily define new stylistic element types for your book.  
-Give them a name and define the style for the element in css and you're on your way!
+Give them a class name and define the style for the element in css and you're on your way!
 
 ## Installation
 
