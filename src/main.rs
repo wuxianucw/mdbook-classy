@@ -3,10 +3,10 @@ use mdbook::book::{Book, Chapter};
 use mdbook::errors::Error;
 use mdbook::preprocess::{CmdPreprocessor, Preprocessor, PreprocessorContext};
 use pulldown_cmark::{CowStr, Event, Parser, Tag};
-use pulldown_cmark_to_cmark;
 use std::io;
 use std::process;
 
+#[derive(Default)]
 pub struct Classy;
 
 impl Classy {
@@ -54,17 +54,17 @@ fn classy(chapter: &mut Chapter) -> Result<(), Error> {
     let mut class_annotations: Vec<ClassAnnotation> = vec![];
     for i in 0..incoming_events.len() {
         let event = &incoming_events[i];
-        match event {
-            &Event::Text(CowStr::Borrowed(text)) => {
+        match *event {
+            Event::Text(CowStr::Borrowed(text)) => {
                 if i > 0 {
-                    if let &Event::Start(Tag::Paragraph) = &incoming_events[i - 1] {
+                    if let Event::Start(Tag::Paragraph) = incoming_events[i - 1] {
                         let v: Vec<_> = text.split("").collect();
                         let len_v = v.len();
                         if v[..4].join("") == "{:." && v[(len_v - 2)..].join("") == "}" {
                             let class = v[4..(len_v - 2)].join("");
                             class_annotations.push(ClassAnnotation {
+                                class,
                                 index: i,
-                                class: class,
                                 paragraph_start: i - 1,
                                 paragraph_end: None,
                             })
@@ -72,10 +72,10 @@ fn classy(chapter: &mut Chapter) -> Result<(), Error> {
                     }
                 }
             }
-            &Event::End(Tag::Paragraph) => {
+            Event::End(Tag::Paragraph) => {
                 let last = class_annotations.last_mut();
                 if let Some(class_command) = last {
-                    if let None = class_command.paragraph_end {
+                    if class_command.paragraph_end.is_none() {
                         class_command.paragraph_end = Some(i);
                     }
                 }
