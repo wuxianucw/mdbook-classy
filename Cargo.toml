@@ -10,7 +10,7 @@ exclude = [
     "examples/*",
 ]
 homepage = "https://github.com/reviewable/mdbook-classy"
-keywords = ["mdbook", "classy", "markdown", "commonmark", "kramdown","css"]
+keywords = ["mdbook", "classy", "markdown", "commonmark","css"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/reviewable/mdbook-classy"
