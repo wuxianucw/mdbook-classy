@@ -2,10 +2,10 @@
 name = "mdbook-classy"
 version = "0.1.0"
 
-authors = ["Doug Bradshaw <dhbradshaw@gmail.com>"]
+authors = ["Doug Bradshaw <dhbradshaw@gmail.com>", "ucw <wuxianucw@outlook.com>"]
 categories = ["command-line-utilities"]
 description = "An mdbook preprocessor for adding html-css classes to markdown."
-edition = "2018"
+edition = "2021"
 exclude = [
     "examples/*",
 ]
@@ -16,8 +16,8 @@ readme = "README.md"
 repository = "https://github.com/reviewable/mdbook-classy"
 
 [dependencies]
-clap = "2.33"
-mdbook = "0.4"
-pulldown-cmark = "0.7"
-pulldown-cmark-to-cmark = "4.0"
-serde_json = "1.0"
+clap = "4.1.14"
+mdbook = "0.4.28"
+pulldown-cmark = "0.9.2"
+pulldown-cmark-to-cmark = "10.0.4"
+serde_json = "1.0.95"
