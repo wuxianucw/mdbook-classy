@@ -1,4 +1,4 @@
-use clap::{App, Arg, ArgMatches, SubCommand};
+use clap::{arg, command, ArgMatches, Command};
 use mdbook::book::{Book, Chapter};
 use mdbook::errors::Error;
 use mdbook::preprocess::{CmdPreprocessor, Preprocessor, PreprocessorContext};
@@ -118,7 +118,7 @@ fn classy(chapter: &mut Chapter) -> Result<(), Error> {
 
     // 4. Update chapter.content using markdown generated from the new event vector.
     let mut buf = String::with_capacity(chapter.content.len() + 128);
-    pulldown_cmark_to_cmark::cmark(new_events.into_iter(), &mut buf, None)
+    pulldown_cmark_to_cmark::cmark(new_events.into_iter(), &mut buf)
         .expect("can re-render cmark");
     chapter.content = buf;
     Ok(())
@@ -150,23 +150,22 @@ fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
 
 /// Check to see if we support the processor (classy only supports html right now)
 fn handle_supports(pre: &dyn Preprocessor, sub_args: &ArgMatches) -> ! {
-    let renderer = sub_args.value_of("renderer").expect("Required argument");
+    let renderer = sub_args.get_one::<String>("renderer").expect("Required argument");
     let supported = pre.supports_renderer(&renderer);
 
     if supported {
         process::exit(0);
-    } else {
-        process::exit(1);
     }
+    process::exit(1);
 }
 
 fn main() {
     // 1. Define command interface, requiring renderer to be specified.
-    let matches = App::new("classy")
+    let matches = command!("classy")
         .about("A mdbook preprocessor that recognizes kramdown style paragraph class annotation.")
         .subcommand(
-            SubCommand::with_name("supports")
-                .arg(Arg::with_name("renderer").required(true))
+            Command::new("supports")
+                .arg(arg!(<renderer>).required(true))
                 .about("Check whether a renderer is supported by this preprocessor"),
         )
         .get_matches();
@@ -176,7 +175,8 @@ fn main() {
 
     if let Some(sub_args) = matches.subcommand_matches("supports") {
         handle_supports(&preprocessor, sub_args);
-    } else if let Err(e) = handle_preprocessing(&preprocessor) {
+    }
+    if let Err(e) = handle_preprocessing(&preprocessor) {
         eprintln!("{}", e);
         process::exit(1);
     }
