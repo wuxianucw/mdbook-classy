@@ -8,12 +8,13 @@ description = "An mdbook preprocessor for adding html-css classes to markdown."
 edition = "2021"
 exclude = [
     "examples/*",
+    "Makefile",
 ]
-homepage = "https://github.com/reviewable/mdbook-classy"
+homepage = "https://github.com/wuxianucw/mdbook-classy"
 keywords = ["mdbook", "classy", "markdown", "commonmark","css"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/reviewable/mdbook-classy"
+repository = "https://github.com/wuxianucw/mdbook-classy"
 
 [dependencies]
 clap = "4.1.14"
